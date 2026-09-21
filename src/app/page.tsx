@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { EmptyState } from "@/components/ui/EmptyState";
 import { PostCard } from "@/components/ui/PostCard";
 import { API_ROUTES, ROUTES, apiUrl, type Post } from "@/contracts/blog";
@@ -51,6 +53,18 @@ export default async function HomePage() {
           href={ROUTES.post(post.slug)}
         />
       ))}
+
+      {/* Un Link, non un Button: ButtonProps non ha href, e un <button>
+          dentro un <a> non è HTML valido. Le classi sono quelle della
+          variante primary. */}
+      <p className="mt-10">
+        <Link
+          href="/contatti"
+          className="inline-flex items-center justify-center rounded-sm bg-ink px-4 py-2 font-sans text-sm font-medium text-paper transition-colors hover:bg-ink-soft"
+        >
+          Scrivici
+        </Link>
+      </p>
     </>
   );
 }
