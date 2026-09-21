@@ -1,22 +1,19 @@
-// TODO(backoffice/editor): il form non è ancora implementato.
-// Deve validare con postInputSchema e mostrare gli errori dentro Field.
+// Server component: la pagina rende solo l'intestazione, l'interattività
+// vive dentro PostForm.
 
-export default function NewPostPlaceholder() {
+import { PostForm } from "@/app/admin/_components/PostForm";
+
+export default function NewPostPage() {
   return (
-    <div className="rounded-lg border border-dashed border-slate-300 bg-white p-8">
-      <h1 className="text-xl font-semibold">Il form non è ancora implementato</h1>
-      <p className="mt-2 text-slate-600">
-        Deve validare con <code>postInputSchema</code> e mostrare ogni errore sotto al
-        campo giusto. Ecco cosa risponde l&apos;API a un input non valido:
-      </p>
-      <pre className="mt-4 overflow-x-auto rounded bg-slate-900 p-4 text-sm text-slate-100">
-{`curl -s -X POST localhost:3000/api/posts \\
-  -H 'content-type: application/json' \\
-  -d '{"title":"ab","excerpt":"","content":"x","author":"io","status":"draft"}'`}
-      </pre>
-      <p className="mt-4 text-sm text-slate-500">
-        Dentro <code>error.fields</code> c&apos;è la mappa campo → messaggio.
-      </p>
+    <div className="flex flex-col gap-8">
+      <header className="border-b border-rule pb-6">
+        <h1 className="font-serif text-3xl font-semibold tracking-tight">Nuovo post</h1>
+        <p className="mt-2 font-sans text-sm text-ink-soft">
+          Compila i campi e scegli se salvarlo come bozza o pubblicarlo subito.
+        </p>
+      </header>
+
+      <PostForm />
     </div>
   );
 }
