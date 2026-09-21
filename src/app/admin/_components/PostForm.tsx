@@ -4,7 +4,7 @@
 // server component.
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
@@ -45,6 +45,10 @@ const EXCERPT_MAX = (() => {
   return max;
 })();
 
+/** Cinque campi di stringhe: il confronto campo per campo basta e avanza. */
+const isSameInput = (a: PostInput, b: PostInput) =>
+  (Object.keys(a) as (keyof PostInput)[]).every((key) => a[key] === b[key]);
+
 export type PostFormProps = {
   /** Senza id è una creazione, con id una modifica. */
   id?: string;
@@ -54,6 +58,15 @@ export type PostFormProps = {
 export function PostForm({ id, initialValues }: PostFormProps) {
   const router = useRouter();
   const [values, setValues] = useState<PostInput>(() => ({
+    ...EMPTY_VALUES,
+    ...initialValues,
+  }));
+  /**
+   * Il metro di paragone per capire se c'è qualcosa da perdere. Parte dai
+   * valori iniziali e si sposta a ogni salvataggio riuscito: da lì in poi
+   * quello che si vede a schermo è quello che è stato salvato.
+   */
+  const [baseline, setBaseline] = useState<PostInput>(() => ({
     ...EMPTY_VALUES,
     ...initialValues,
   }));
@@ -67,6 +80,25 @@ export function PostForm({ id, initialValues }: PostFormProps) {
   // Lo schema misura il sommario dopo il trim: il contatore conta lo stesso.
   const excerptLength = values.excerpt.trim().length;
   const excerptTooLong = excerptLength > EXCERPT_MAX;
+
+  const dirty = !isSameInput(values, baseline);
+
+  /**
+   * L'avviso del browser prima di chiudere la scheda o ricaricare. Copre
+   * l'uscita dal sito, non i link interni: quelli sono navigazioni di Next e
+   * non fanno unload della pagina.
+   */
+  useEffect(() => {
+    if (!dirty) return;
+
+    const warn = (event: BeforeUnloadEvent) => {
+      // Il testo lo sceglie il browser: a noi tocca solo dire che c'è da perdere.
+      event.preventDefault();
+    };
+
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -103,6 +135,9 @@ export function PostForm({ id, initialValues }: PostFormProps) {
         }
         return;
       }
+
+      // Da qui in poi non c'è più niente da perdere: niente avviso all'uscita.
+      setBaseline(values);
 
       // refresh: l'elenco legge dalle API, senza questo torna la copia in cache.
       router.push(ROUTES.adminPosts);
