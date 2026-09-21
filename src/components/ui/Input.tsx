@@ -14,12 +14,15 @@ export function Input({
   invalid,
 }: InputProps) {
   const className = [
-    "block w-full rounded-md border bg-white px-3 py-2 text-sm text-slate-900",
-    "placeholder:text-slate-400 focus:outline-none focus:ring-2",
+    "block w-full rounded-sm border bg-sheet px-3 py-2 text-ink",
+    "placeholder:text-ink-faint focus:outline-none focus:ring-2",
     invalid
-      ? "border-red-400 focus:border-red-500 focus:ring-red-200"
-      : "border-slate-300 focus:border-slate-400 focus:ring-slate-200",
-    multiline ? "min-h-40 resize-y leading-relaxed" : "",
+      ? "border-alarm focus:border-alarm focus:ring-alarm/20"
+      : "border-rule focus:border-ink focus:ring-ink/15",
+    // Il testo lungo si scrive nella faccia in cui verrà letto.
+    multiline
+      ? "min-h-56 resize-y font-serif text-lg leading-relaxed"
+      : "font-sans text-sm",
   ].join(" ");
 
   if (multiline) {

@@ -1,23 +1,31 @@
 import type { PostStatus, StatusBadgeProps } from "@/contracts/blog";
 
-const STATUS_STYLES: Record<PostStatus, { label: string; className: string }> = {
+/**
+ * Il pallino è la distinzione che regge il prodotto: pieno se il testo è
+ * fuori nel mondo, vuoto se è ancora sulla scrivania.
+ */
+const STATUS_STYLES: Record<
+  PostStatus,
+  { label: string; dot: string; text: string }
+> = {
   draft: {
     label: "Bozza",
-    className: "bg-amber-50 text-amber-700 ring-amber-200",
+    dot: "border-2 border-pending",
+    text: "text-pending",
   },
   published: {
     label: "Pubblicato",
-    className: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+    dot: "border-2 border-live bg-live",
+    text: "text-live",
   },
 };
 
 export function StatusBadge({ status }: StatusBadgeProps) {
-  const { label, className } = STATUS_STYLES[status];
+  const { label, dot, text } = STATUS_STYLES[status];
 
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${className}`}
-    >
+    <span className={`inline-flex items-center gap-2 font-sans text-sm ${text}`}>
+      <span aria-hidden="true" className={`size-2.5 rounded-full ${dot}`} />
       {label}
     </span>
   );

@@ -5,10 +5,9 @@
 import type { ButtonProps } from "@/contracts/blog";
 
 const VARIANT_STYLES = {
-  primary: "bg-slate-900 text-white hover:bg-slate-700 focus:ring-slate-400",
-  secondary:
-    "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus:ring-slate-300",
-  danger: "bg-red-600 text-white hover:bg-red-500 focus:ring-red-300",
+  primary: "bg-ink text-paper hover:bg-ink-soft",
+  secondary: "border border-rule bg-sheet text-ink hover:border-ink",
+  danger: "bg-alarm text-paper hover:bg-alarm/90",
 } as const;
 
 export function Button({
@@ -23,7 +22,7 @@ export function Button({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${VARIANT_STYLES[variant]}`}
+      className={`inline-flex items-center justify-center rounded-sm px-4 py-2 font-sans text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${VARIANT_STYLES[variant]}`}
     >
       {children}
     </button>

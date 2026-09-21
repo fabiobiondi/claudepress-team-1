@@ -10,22 +10,32 @@ const dateFormatter = new Intl.DateTimeFormat("it-IT", {
 
 export function PostCard({ title, excerpt, author, date, href }: PostCardProps) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-5 transition-colors hover:border-slate-300">
-      <h2 className="text-lg font-semibold tracking-tight text-slate-900">
-        <Link href={href} className="hover:underline">
-          {title}
-        </Link>
-      </h2>
+    <article className="grid gap-x-8 gap-y-1 border-b border-rule py-8 sm:grid-cols-[7rem_1fr]">
+      <time
+        dateTime={date}
+        className="font-sans text-sm leading-6 text-ink-faint sm:text-right"
+      >
+        {dateFormatter.format(new Date(date))}
+      </time>
 
-      {excerpt ? (
-        <p className="mt-2 text-sm leading-relaxed text-slate-600">{excerpt}</p>
-      ) : null}
+      <div className="max-w-[60ch]">
+        <h2 className="font-serif text-2xl leading-snug font-semibold">
+          <Link
+            href={href}
+            className="decoration-rule decoration-2 underline-offset-4 hover:underline"
+          >
+            {title}
+          </Link>
+        </h2>
 
-      <p className="mt-4 flex flex-wrap items-center gap-2 text-xs text-slate-500">
-        <span>di {author}</span>
-        <span aria-hidden="true">·</span>
-        <time dateTime={date}>{dateFormatter.format(new Date(date))}</time>
-      </p>
+        {excerpt ? (
+          <p className="mt-2 font-serif text-lg leading-relaxed text-ink-soft">
+            {excerpt}
+          </p>
+        ) : null}
+
+        <p className="mt-3 font-sans text-sm text-ink-faint">{author}</p>
+      </div>
     </article>
   );
 }
