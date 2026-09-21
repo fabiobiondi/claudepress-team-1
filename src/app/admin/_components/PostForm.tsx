@@ -32,6 +32,19 @@ const EMPTY_VALUES: PostInput = {
   status: "draft",
 };
 
+/**
+ * Il limite del sommario si legge dal contratto, non si riscrive qui: il
+ * contatore e lo schema devono dire lo stesso numero anche quando cambia.
+ * Se il contratto smette di dichiararlo, meglio accorgersene subito.
+ */
+const EXCERPT_MAX = (() => {
+  const max = postInputSchema.shape.excerpt.maxLength;
+  if (max === null) {
+    throw new Error("postInputSchema non dichiara più un massimo per excerpt");
+  }
+  return max;
+})();
+
 export type PostFormProps = {
   /** Senza id è una creazione, con id una modifica. */
   id?: string;
@@ -40,16 +53,20 @@ export type PostFormProps = {
 
 export function PostForm({ id, initialValues }: PostFormProps) {
   const router = useRouter();
-  const [values, setValues] = useState<PostInput>({
+  const [values, setValues] = useState<PostInput>(() => ({
     ...EMPTY_VALUES,
     ...initialValues,
-  });
+  }));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const setValue = <K extends keyof PostInput>(key: K, value: PostInput[K]) =>
     setValues((current) => ({ ...current, [key]: value }));
+
+  // Lo schema misura il sommario dopo il trim: il contatore conta lo stesso.
+  const excerptLength = values.excerpt.trim().length;
+  const excerptTooLong = excerptLength > EXCERPT_MAX;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -117,8 +134,15 @@ export function PostForm({ id, initialValues }: PostFormProps) {
           value={values.excerpt}
           onChange={(value) => setValue("excerpt", value)}
           placeholder="Una riga che invoglia a leggere"
-          invalid={Boolean(errors.excerpt)}
+          invalid={Boolean(errors.excerpt) || excerptTooLong}
         />
+        <p
+          className={`self-end font-sans text-xs tabular-nums ${
+            excerptTooLong ? "text-alarm" : "text-ink-faint"
+          }`}
+        >
+          {excerptLength} / {EXCERPT_MAX}
+        </p>
       </Field>
 
       <Field label="Contenuto" htmlFor="content" error={errors.content}>
@@ -174,7 +198,7 @@ export function PostForm({ id, initialValues }: PostFormProps) {
           </p>
         ) : null}
         <div>
-          <Button type="submit" disabled={submitting}>
+          <Button type="submit" disabled={submitting || excerptTooLong}>
             {submitting ? "Salvataggio…" : id ? "Salva le modifiche" : "Crea il post"}
           </Button>
         </div>
