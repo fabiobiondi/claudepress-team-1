@@ -1,0 +1,68 @@
+[
+  {
+    "id": "po-006",
+    "slug": "scrivere-una-skill-che-usi-davvero",
+    "title": "Scrivere una skill che userai davvero",
+    "excerpt": "Una skill lunga è una skill che non fa quello che credi. Trenta righe bastano.",
+    "content": "La maggior parte delle skill muore il giorno dopo essere stata scritta.\n\nIl motivo è quasi sempre lo stesso: descrivono invece di comandare. Una skill utile è una procedura numerata, non un tema sull'argomento.\n\nRegola pratica: se non sta in trenta righe, non hai ancora capito cosa ti serve.",
+    "author": "Redazione",
+    "status": "draft",
+    "createdAt": "2026-03-18T09:00:00.000Z",
+    "updatedAt": "2026-03-18T09:00:00.000Z"
+  },
+  {
+    "id": "po-005",
+    "slug": "il-contratto-prima-del-codice",
+    "title": "Il contratto, prima del codice",
+    "excerpt": "Tre persone sulla stessa codebase non si mettono d'accordo parlando: si mettono d'accordo su un file.",
+    "content": "Quando tre persone lavorano in parallelo, la domanda non è «chi fa cosa», ma «come faccio a scrivere codice contro una cosa che non esiste ancora».\n\nLa risposta è un file solo, congelato, che contiene i tipi, gli schemi di validazione e le firme dei componenti.\n\nDa quel momento nessuno deve aspettare nessuno.",
+    "author": "Redazione",
+    "status": "published",
+    "createdAt": "2026-03-15T14:30:00.000Z",
+    "updatedAt": "2026-03-16T08:10:00.000Z"
+  },
+  {
+    "id": "po-004",
+    "slug": "una-regola-si-scrive-dopo-aver-sbagliato",
+    "title": "Una regola si scrive dopo aver sbagliato",
+    "excerpt": "Prima di sbagliare è un'opinione. Dopo è una cicatrice, e si vede perché è specifica.",
+    "content": "«Attenzione alla cache» non è una regola: è un sospiro.\n\n«Le pagine del sito fanno fetch con cache no-store, altrimenti un post appena creato non compare in home» è una regola, perché si può seguire.\n\nLa differenza è tutta lì: una regola utile nasce da un errore che hai già fatto.",
+    "author": "Redazione",
+    "status": "draft",
+    "createdAt": "2026-03-12T11:00:00.000Z",
+    "updatedAt": "2026-03-12T11:00:00.000Z"
+  },
+  {
+    "id": "po-003",
+    "slug": "niente-database-e-una-scelta",
+    "title": "Niente database è una scelta",
+    "excerpt": "Zero setup, zero credenziali, zero rete. E i dati di ognuno sono i suoi.",
+    "content": "Per un progetto che deve partire in un minuto su qualsiasi portatile, un database vero costa più di quello che rende.\n\nUno store in memoria seminato da un JSON non ha credenziali da distribuire, non dipende dalla rete e non si rompe quando sei offline.\n\nRiavvii il server e i dati tornano quelli di partenza: è una funzionalità, non un limite.",
+    "author": "Redazione",
+    "status": "published",
+    "createdAt": "2026-03-08T16:45:00.000Z",
+    "updatedAt": "2026-03-08T16:45:00.000Z"
+  },
+  {
+    "id": "po-002",
+    "slug": "chi-possiede-quale-file",
+    "title": "Chi possiede quale file",
+    "excerpt": "Se due persone possono toccare lo stesso file, prima o poi lo toccano nello stesso momento.",
+    "content": "La divisione del lavoro non si fa per argomenti, si fa per path.\n\nOgni persona ha un elenco di file che sono suoi. Nessun path compare in due elenchi. Se ti serve un file di un altro, non è un problema da risolvere in fretta: è materiale per il merge.\n\nÈ una regola noiosa, e fa risparmiare un pomeriggio.",
+    "author": "Redazione",
+    "status": "draft",
+    "createdAt": "2026-03-05T10:20:00.000Z",
+    "updatedAt": "2026-03-05T10:20:00.000Z"
+  },
+  {
+    "id": "po-001",
+    "slug": "benvenuti-su-claudepress",
+    "title": "Benvenuti su ClaudePress",
+    "excerpt": "Un blog con il suo CMS, costruito in tre persone e due ore.",
+    "content": "Questo è il primo post del seed.\n\nSe lo stai leggendo su una pagina che hai scritto tu, vuol dire che la home funziona e che le API rispondono.\n\nDa qui in poi è tutto tuo: cancellalo, modificalo, o lascialo lì come promemoria di dove sei partito.",
+    "author": "Redazione",
+    "status": "published",
+    "createdAt": "2026-03-01T08:00:00.000Z",
+    "updatedAt": "2026-03-01T08:00:00.000Z"
+  }
+]
