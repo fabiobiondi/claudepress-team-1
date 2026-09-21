@@ -3,6 +3,7 @@ import { API_ROUTES, ROUTES, apiUrl, type Post } from "@/contracts/blog";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { DeletePostButton } from "@/app/admin/posts/_list/DeletePostButton";
+import { StatusToggle } from "@/app/admin/posts/_list/StatusToggle";
 
 const dateFormatter = new Intl.DateTimeFormat("it-IT", {
   day: "numeric",
@@ -45,7 +46,7 @@ export default async function AdminPostsPage() {
         />
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[42rem] border-collapse text-left">
+          <table className="w-full min-w-[52rem] border-collapse text-left">
             <thead>
               <tr className="border-b border-rule text-sm text-ink-faint">
                 <th scope="col" className="py-3 pr-6 font-medium">
@@ -80,6 +81,7 @@ export default async function AdminPostsPage() {
                   </td>
                   <td className="py-5">
                     <div className="flex items-center justify-end gap-4">
+                      <StatusToggle id={post.id} status={post.status} title={post.title} />
                       <Link
                         href={ROUTES.adminPost(post.id)}
                         className="text-sm underline decoration-rule underline-offset-4 hover:decoration-ink"
