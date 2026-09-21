@@ -108,6 +108,8 @@ Commit piccoli, messaggi in inglese in formato conventional commit.
 
 ## Regole aggiunte dal team
 
+Le pagine del sito fanno fetch con `cache: "no-store"`. Senza, un post creato nel backoffice non compare in home e sembra un bug delle API.
+
 <!-- TODO: si riempie strada facendo, non adesso.
 
      Ci va quello che hai dovuto spiegare a Claude due volte. Una regola
